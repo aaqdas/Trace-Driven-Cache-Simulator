@@ -10,8 +10,6 @@ import sys
 import time
 import ConfigParser
 import traceback  
-# ##############################
-
 
 ################ cache_conf reader : start ################ 
 print 'Loading the configuration file...'
