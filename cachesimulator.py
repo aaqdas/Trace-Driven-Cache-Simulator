@@ -10,17 +10,22 @@ import sys
 import time
 import ConfigParser
 import traceback  
+# ##############################
+
+
 ################ cache_conf reader : start ################ 
 print 'Loading the configuration file...'
 config = ConfigParser.SafeConfigParser()
 try:
-	config.read("cache_conf.ini")
-	hitTimeL1 = config.getint("DL1_core","hitDelay")
-	misspenalty = config.getint("DL1_core","missPenalty")
-	cacheSize = eval(config.get("DL1_core","size"),{"__builtins__":None},{})
-	cacheBlockSize = eval(config.get("DL1_core","bsize"),{"__builtins__":None},{})
-	way = eval(config.get("DL1_core","assoc"),{"__builtins__":None},{})
-	policy = config.get("DL1_core","replPolicy")
+    config.read("cache_conf.ini")
+    hitTimeL1 = config.getint("DL1_core","hitDelay")
+    misspenalty = config.getint("DL1_core","missPenalty")
+    cacheSize = eval(config.get("DL1_core","size"),{"__builtins__":None},{})
+    cacheBlockSize = eval(config.get("DL1_core","bsize"),{"__builtins__":None},{})
+    way = eval(config.get("DL1_core","assoc"),{"__builtins__":None},{})
+    policy = config.get("DL1_core","replPolicy")
+    workload = config.get("WorkLoad","workLoad")
+
 except ConfigParser.NoSectionError:
 	print 'The cache_conf.ini file is missing! Please check the file.'
 	time.sleep(1)
@@ -60,7 +65,7 @@ linenum = 0
 p=0
 dot='.'
 try:
-    with open('gcc-10M','rU') as ff:
+    with open(workload,'rU') as ff:
         for count, line in enumerate(ff):
             if count % 300000 == 0 and count >= 300000:
                 p+=1
@@ -81,7 +86,7 @@ timeTable  = [ [ 0 for i in range(way) ] for j in range(indexSize) ]    #record 
 print 'Call the space for Cache Simulator...Done'
 ################ Cache initialize : end  ################
 try:
-    with open('gcc-10M') as f:
+    with open(workload) as f:
         for line in f:
             # text = line[35:46]
             textlist = re.split('\s+',line)
@@ -174,9 +179,11 @@ print 'Missrate    : ',round(missrate,4),'%'
 print '----------------------------------'
 print 'readline:',linenum
 # Write in result file
-filename = 'result_' + time.strftime('%H%M%S@%m-%d-%y',time.localtime(time.time()))+'.txt'
-print 'final result file output:'+ filename
-file_writer=open(filename,'w') 							#open a write connection to the output file
+outputfilename = 'result_' + time.strftime('%H%M%S@%m-%d-%y',time.localtime(time.time()))+'.txt'
+print 'final result file output:'+ outputfilename
+file_writer=open(outputfilename,'w') 							#open a write connection to the output file
+file_writer.write('Workload\t: ' + workload +'\n') 
+file_writer.write('----------------------------------------------------------------\n')
 file_writer.write('Cache Size\t: ' + str(cacheSize) +'\t\t'+'Cache Block Size\t: ' + str(cacheBlockSize) +'\n') #write
 file_writer.write('Associativity\t: ' + str(way) + '\t\t'+ 'Replacement Policie\t: ' + policy+'\n')
 file_writer.write('----------------------------------------------------------------\n')
