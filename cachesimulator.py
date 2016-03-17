@@ -72,7 +72,7 @@ try:
                 if p >= 10:
                     p=0
             pass
-        step = count/100
+        step = (count+1)/100
         print 'Task size assessing..........Finished'
 except IOError:
     print 'Cannot find the trace file, please check it.'
