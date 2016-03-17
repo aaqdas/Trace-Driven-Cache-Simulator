@@ -20,4 +20,4 @@ The following basic cache statistics can be measured in our simulator:
 * Cache misses
 * Average Memory Access Time
 
-These statistics are saved in the output file result_******@**-**-**.txt, where asterisk represent the time when we create the output file.
+These statistics are saved in the output file result_hhmmss@MM-DD-YY.txt.
