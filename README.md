@@ -1,4 +1,8 @@
-A simple cache simulator implemented by python. The trace file extracted from https://www.cis.upenn.edu/~milom/cis501-Fall12/traces/trace-format.html. The trace file contains several fields but only memory address is useful in this cache simulator. The simulator is configurable in a number of parameters and is able to measure basic cache statistics. Due to the large size of trace file, it also implemented a progress bar to indicate the simulator progress.
+**A simple cache simulator implemented by python.** The trace file extracted from
+
+https://www.cis.upenn.edu/~milom/cis501-Fall12/traces/trace-format.html. 
+
+The trace file contains several fields but only memory address is useful in this cache simulator. The simulator is configurable in a number of parameters and is able to measure basic cache statistics. Due to the large size of trace file, it also implemented a progress bar to indicate the simulator progress.
 
 # Configuration
 
